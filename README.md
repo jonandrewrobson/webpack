@@ -80,6 +80,16 @@ ASSET MGMT
                 - background: url('./icon.png');
         - A logical next step from here is minifying and optimizing your images. Check out the image-webpack-loader and url-loader for more on how you can enhance your image loading process.
 
+    Loading Fonts:
+        - Update config to handle fonts
+            -   ```{
+                    test: /\.(woff|woff2|eot|ttf|otf)$/,
+                    use: [
+                    'file-loader'
+                    ]
+                }```
+        - Include fonts to src directory
+        - Incorporate fonts via fontface (Found that woff files work here)
 
 
     <!-- Loading SASS
