@@ -4,8 +4,8 @@
   "description": "Basic installation of webpack project.",
   "private": true,
   "scripts": {
-    "build": "webpack --progress --colors",
-    "start": "webpack-dev-server --progress --colors"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
