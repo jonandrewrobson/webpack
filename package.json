@@ -1,0 +1,28 @@
+{
+  "name": "webpack-install",
+  "version": "1.0.0",
+  "description": "Basic installation of webpack project.",
+  "private": true,
+  "scripts": {
+    "build": "webpack --progress --colors",
+    "start": "webpack-dev-server --progress --colors"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonandrewrobson/webpack.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jonandrewrobson/webpack/issues"
+  },
+  "homepage": "https://github.com/jonandrewrobson/webpack#readme",
+  "devDependencies": {
+    "css-loader": "^2.1.0",
+    "mini-css-extract-plugin": "^0.5.0",
+    "node-sass": "^4.11.0",
+    "sass-loader": "^7.1.0",
+    "webpack": "^4.29.2",
+    "webpack-cli": "^3.2.3"
+  }
+}
