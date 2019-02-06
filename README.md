@@ -68,6 +68,17 @@ ASSET MGMT
     Loading Images:
         - Install file loader
             - npm install --save-dev file-loader
+        - Add icon file to src
+        - Import icon to main.js
+            - import Icon from './icon.png';
+            - Add the image to our existing div.
+                ```var myIcon = new Image();
+                myIcon.src = Icon;
+
+                element.appendChild(myIcon);```
+            - Add image to stylesheet
+                - background: url('./icon.png');
+        - A logical next step from here is minifying and optimizing your images. Check out the image-webpack-loader and url-loader for more on how you can enhance your image loading process.
 
 
 
