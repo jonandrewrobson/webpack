@@ -1,5 +1,13 @@
+@font-face {
+  font-family: 'MyFont';
+  src:  url('./my-font.woff') format('woff');
+  /* font-weight: 600; */
+  /* font-style: normal; */
+}
+
 .hello {
-  color: red;
-  font-size: 32px;
+  color: blueviolet;
+  font-size: 60px;
+  font-family: 'MyFont';
   background: url('./icon.png');
 }
