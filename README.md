@@ -59,7 +59,24 @@ ASSET MGMT
 						]
 					}
 				]
-			}```
+			}```'
+        - Create css file
+        - Import to index.js
+            - import './style.css';
+            - element.classList.add('hello');
+
+    Loading Images:
+        - Install file loader
+            - npm install --save-dev file-loader
+
+
+
+    <!-- Loading SASS
+        - Install sass-loader
+            - npm install sass-loader node-sass webpack --save-dev
+        - Chain css loader with sass-loader to be peer dependencies to immediately apply all styles to the dom
+            -  -->
+
 
 
 
