@@ -121,4 +121,60 @@ ASSET MGMT
 <Development Environment>
 	- THESE TOOLS USED FOR LOCAL ENVIRONMENT only
 	- Set mode to development
+		- In config add ```mode: 'development',```
+	- Set up source maps to track errors and warnings to specific files within a bundle. Errors will show up in console.
+		- Add inline-source-map to config
+			- devtool: 'inline-source-map',
+
+	Development tools (Watchlist, Dev Server, or Dev Middleware):
+		- Once these are installed you can run server by using either:
+			- Watchlist: npm run watch
+			- Dev Server: npm start
+			- Dev Middleware: npm run server
+		- Watchlist (This will require a page refresh):
+			- Add watch mode to json scripts
+				- ```"watch": "webpack --watch",```
+		- Install webpack dev server
+			- npm install --save-dev webpack-dev-server
+			- Add server to config file and specify dist folder (This tells webpack-dev-server to serve the files from the dist directory on localhost:8080)
+				```devServer: {
+					contentBase: './dist'
+				},```
+			- Add script to json to run dev server
+				- "start": webpack-dev-server --open",
+			- Once working look into https://webpack.js.org/guides/hot-module-replacement/
+		- Dev Middleware
+			- Install express and web dev middleware
+				- npm install --save-dev express webpack-dev-middleware
+				- Add public path to config file output
+					- publicPath: '/'
+				- Set up custom express server
+					- Create server.js in root
+				- Populate server.js
+					```
+					const express = require('express');
+					const webpack = require('webpack');
+					const webpackDevMiddleware = require('webpack-dev-middleware');
+
+					const app = express();
+					const config = require('./webpack.config.js');
+					const compiler = webpack(config);
+
+					// Tell express to use the webpack-dev-middleware and use the webpack.config.js
+					// configuration file as a base.
+					app.use(webpackDevMiddleware(compiler, {
+					publicPath: config.output.publicPath
+					}));
+
+					// Serve the files on port 3000.
+					app.listen(3000, function () {
+					console.log('Example app listening on port 3000!\n');
+					});
+					```
+				- Add script to json to make it run  easier on the server
+					```
+					"server": "node server.js",
+					```
+	Adjust Text Editor
+		- If using sublime, webstorm, or vim - disable safewrite mode (https://webpack.js.org/guides/development/#adjusting-your-text-editor)
 </Development>
