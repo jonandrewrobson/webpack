@@ -4,8 +4,7 @@ Basic installation of webpack project.
 
 Webpack
 
-Installation:
-
+<Installation:>
 	- Create project directory and cd into it
 		- mkdir webpack-demo && cd webpack-demo
 	- Set up NPM in project
@@ -99,7 +98,7 @@ ASSET MGMT
             -  -->
 
 
+<Output-Management>
 
-
-Link JS
-	- Creat new script file
+	- Set up HtmlWebpackPlugin
+		- npm install --save-dev html-webpack-plugin
