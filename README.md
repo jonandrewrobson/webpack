@@ -116,3 +116,9 @@ ASSET MGMT
 		- Install CleanWebpackPlugin
 			- npm install --save-dev clean-webpack-plugin
 			- Add plugin to config
+
+
+<Development Environment>
+	- THESE TOOLS USED FOR LOCAL ENVIRONMENT only
+	- Set mode to development
+</Development>
