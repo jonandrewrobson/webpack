@@ -99,6 +99,17 @@ ASSET MGMT
 
 
 <Output-Management>
+	- Step 1: Preparation
+		- Set up HtmlWebpackPlugin
+			- npm install --save-dev html-webpack-plugin
+			- Add const and plugin to config file
+				- const HtmlWebpackPlugin = require('html-webpack-plugin');
+				- 	plugins: [
+					new HtmlWebpackPlugin({
+						title: 'Output Management'
+					})
+					],
+			- Additional resources: https://github.com/jaketrent/html-webpack-template
 
-	- Set up HtmlWebpackPlugin
-		- npm install --save-dev html-webpack-plugin
+	- Step 2: Clean Up Dist
+		-
