@@ -112,4 +112,7 @@ ASSET MGMT
 			- Additional resources: https://github.com/jaketrent/html-webpack-template
 
 	- Step 2: Clean Up Dist
-		-
+		- In general it's good practice to clean the /dist folder before each build, so that only used files will be generated.
+		- Install CleanWebpackPlugin
+			- npm install --save-dev clean-webpack-plugin
+			- Add plugin to config
