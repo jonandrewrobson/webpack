@@ -1,10 +1,7 @@
-# webpack
+#Webpack
 [Basic installation of webpack project.](https://webpack.js.org/guides/)
 
-
-Webpack
-
-<Installation:>
+##Installation:
 	- Create project directory and cd into it
 		- mkdir webpack-demo && cd webpack-demo
 	- Set up NPM in project
