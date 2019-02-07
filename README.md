@@ -1,5 +1,5 @@
 # webpack
-Basic installation of webpack project.
+[Basic installation of webpack project.](https://webpack.js.org/guides/)
 
 
 Webpack
