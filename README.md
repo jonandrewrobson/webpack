@@ -4,8 +4,7 @@ Basic installation of webpack project.
 
 Webpack
 
-Installation:
-
+<Installation:>
 	- Create project directory and cd into it
 		- mkdir webpack-demo && cd webpack-demo
 	- Set up NPM in project
@@ -99,7 +98,21 @@ ASSET MGMT
             -  -->
 
 
+<Output-Management>
+	- Step 1: Preparation
+		- Set up HtmlWebpackPlugin
+			- npm install --save-dev html-webpack-plugin
+			- Add const and plugin to config file
+				- const HtmlWebpackPlugin = require('html-webpack-plugin');
+				- 	plugins: [
+					new HtmlWebpackPlugin({
+						title: 'Output Management'
+					})
+					],
+			- Additional resources: https://github.com/jaketrent/html-webpack-template
 
-
-Link JS
-	- Creat new script file
+	- Step 2: Clean Up Dist
+		- In general it's good practice to clean the /dist folder before each build, so that only used files will be generated.
+		- Install CleanWebpackPlugin
+			- npm install --save-dev clean-webpack-plugin
+			- Add plugin to config
