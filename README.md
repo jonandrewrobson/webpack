@@ -128,6 +128,7 @@ ASSET MGMT
 			- Watchlist: npm run watch
 			- Dev Server: npm start
 			- Dev Middleware: npm run server
+			- Note: This will remove the dist folder from working directory and keep in memory. Run npm run build to bundle files into dist.
 		- Watchlist (This will require a page refresh):
 			- Add watch mode to json scripts
 				- ```"watch": "webpack --watch",```
