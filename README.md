@@ -1,178 +1,265 @@
 # Webpack
-[Basic installation of webpack project.](https://webpack.js.org/guides/)
+[Webpack Documentation](https://webpack.js.org/guides/)
 
 ## Installation:
-	- Create project directory and cd into it
-		- mkdir webpack-demo && cd webpack-demo
-	- Set up NPM in project
-		- npm init
-		- creates json and tracks dependencies
-	- Install webpack, cli, and server locally
-		- npm install --save-dev webpack webpack-cli webpack-web-server
+- Create project directory and cd into it
+	- mkdir webpack-demo && cd webpack-demo
+- Set up NPM to establish dependencies
+	- Run ```npm init```
+	- Mark json package as private to prevent accidental publishing of code
+		- ```"private": true,```
+- Install webpack and webpack cli
+	- ```npm install --save-dev webpack webpack-cli```
 
-	Create Directory Structure
-		  webpack-demo
-			|- package.json
-		 	|- /dist
-		 		|- index.html
-			|- /src
-				|- index.js
+###Create a Bundle
+- Create index.html into dist
+```
+<!doctype html>
+<html>
+	<head>
+		<title>Asset Management</title>
+	</head>
+	<body>
+		<script src="./bundle.js"></script>
+	</body>
+</html>
+```
+- Create style.css into src
+- Create index.js into src
 
-		- npm install --save lodash to read global variable of '_'
-		- run 'npx webpack' to take our script at src/index.js as the entry point, and generate dist/main.js as the output
-		- If installed correctly index.html should return "Hello webpack"
+```
+import _ from 'lodash';
+import './style.css';
 
-	Create webpack config file
-		- Install xcode/clt if needed
-		- touch webpack.config.js
-		- npx webpack --config webpack.config.js
+function component() {
+    let element = document.createElement('div');
 
-		For more complex config files:
-		- https://generatewebpackconfig.netlify.com/
-		- install dependencies
-			- npm install node-sass mini-css-extract-plugin css-loader sass-loader --save-dev
-			
-	NPM Scripts:
-		- Add '"build": "webpack"' to scripts in .json
-		- npm run build command can be used now in place of the npx
+    // Lodash, now imported by this script
+    element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+    element.classList.add('hello');
+  
+    return element;
+  }
+  
+document.body.appendChild(component());
+```
 
-ASSET MGMT
+- Install lodash to read global variable of '_'
+```npm install --save lodash```
 
-	- Change script src in html to ./bundle.js
-	- Change filename to bundle.js in config file
+- run 'npx webpack' to take our script at src/index.js as the entry point, and generate dist/main.js as the output
+	- If installed correctly index.html should return "Hello webpack"
 
-	Loading CSS:
-		- Add style-loader and css-loader
-			- npm install --save-dev style-loader css-loader
-		- Add module to config file to include
-			```module: {
-				rules: [
-					{
-						test: /\.css$/,
-						use: [
-							'style-loader',
-							'css-loader'
-						]
-					}
+#### Create webpack config file:
+	
+- Install xcode/clt if needed
+	- npm install xcode 
+- Create config file
+```touch webpack.config.js```
+
+```
+const path = require('path');
+
+module.exports = {
+	entry: './src/index.js',
+	output: {
+	filename: 'bundle.js',
+	path: path.resolve(__dirname, 'dist')
+	},
+	module: {
+		rules: [
+			{
+				test: /\.css$/,
+				use: [
+					'style-loader',
+					'css-loader'
 				]
-			}```'
-        - Create css file
-        - Import to index.js
-            - import './style.css';
-            - element.classList.add('hello');
+			},
+			{
+				test: /\.(png|svg|jpg|gif)$/,
+				use: [
+					'file-loader'
+				]
+			},
+			{
+				test: /\.(woff|woff2|eot|ttf|otf)$/,
+				use: [
+					'file-loader'
+				]
+			}
+		]
+	}
+};
+```
 
-    Loading Images:
-        - Install file loader
-            - npm install --save-dev file-loader
-        - Add icon file to src
-        - Import icon to main.js
-            - import Icon from './icon.png';
-            - Add the image to our existing div.
-                ```var myIcon = new Image();
-                myIcon.src = Icon;
+- Tell webpack which config file to point to
+	- ```npx webpack --config webpack.config.js```
+- [Generate Custom Config Files](https://generatewebpackconfig.netlify.com/)
+			
+##### NPM Scripts:
+- Add build script to json to automate build from cli
+	- ```"build": "webpack"```		
+- Instead of npx run new build command
+	- ```npm run build``` 
 
-                element.appendChild(myIcon);```
-            - Add image to stylesheet
-                - background: url('./icon.png');
-        - A logical next step from here is minifying and optimizing your images. Check out the image-webpack-loader and url-loader for more on how you can enhance your image loading process.
+## Asset Management
 
-    Loading Fonts:
-        - Update config to handle fonts
-            -   ```{
-                    test: /\.(woff|woff2|eot|ttf|otf)$/,
-                    use: [
-                    'file-loader'
-                    ]
-                }```
-        - Include fonts to src directory
-        - Incorporate fonts via fontface (Found that woff files work here)
+#### Loading CSS & SASS
+		
+- Install dependencies for css and sass. Chain css loader with sass-loader to be peer dependencies to immediately apply all styles to the DOM.
+
+```
+npm install node-sass mini-css-extract-plugin css-loader style-loader sass-loader --save-dev
+```
+	
+- Add module to config file to include style loader and css loader
+ 
+```
+module: {
+	rules: [
+		{
+			test: /\.css$/,
+			use: [
+				'style-loader',
+				'css-loader'
+			]
+		}
+	]
+}
+```
+
+#### Loading Images:
+- Install file loader
+
+```
+npm install --save-dev file-loader
+```
+
+- Add image file to src folder
+- Import image to index.js
+
+```
+import Icon from './icon.png';
+```
+- Add the image to our existing div
+
+```
+var myIcon = new Image();
+myIcon.src = Icon;
+
+element.appendChild(myIcon);
+```
+
+- Add image to stylesheet
+
+```
+background: url('./icon.png');
+```
+
+- A logical next step from here is minifying and optimizing your images. Check out the image-webpack-loader and url-loader for more on how you can enhance your image loading process.
+
+#### Loading Fonts:
+- Update config file to handle fonts
+
+```
+{
+    test: /\.(woff|woff2|eot|ttf|otf)$/,
+    use: [
+    'file-loader'
+    ]
+}
+```
+- Include fonts to src directory
+- Incorporate fonts via fontface (Found that woff files work here)
+
+```
+@font-face {
+  font-family: 'MyFont';
+  src:  url('./my-font.woff') format('woff');
+}
+
+font-family: 'MyFont';
+```
 
 
-    <!-- Loading SASS
-        - Install sass-loader
-            - npm install sass-loader node-sass webpack --save-dev
-        - Chain css loader with sass-loader to be peer dependencies to immediately apply all styles to the dom
-            -  -->
+## Output-Management
+#### Step 1: Preparation
+- Set up HtmlWebpackPlugin to generate its own newly generated index file.
+	- ```npm install --save-dev html-webpack-plugin```
+- Add const and plugin to config file
+	- ```const HtmlWebpackPlugin = require('html-webpack-plugin');```
+	- ```plugins: [ new HtmlWebpackPlugin({title: 'Output Management'}) ]```
+			
+- [Additional Resources](https://github.com/jaketrent/html-webpack-template)
+
+#### Step 2: Clean Up Dist Folder
+- In general it's good practice to clean the /dist folder before each build, so that only used files will be generated.
+- Install CleanWebpackPlugin
+	- ```npm install --save-dev clean-webpack-plugin```
+- Add const and plugin to plugin to config file
+	- ```const CleanWebpackPlugin = require('clean-webpack-plugin');```
+	- ```plugins: [ new CleanWebpackPlugin(['dist']) ]```
 
 
-<Output-Management>
-	- Step 1: Preparation
-		- Set up HtmlWebpackPlugin
-			- npm install --save-dev html-webpack-plugin
-			- Add const and plugin to config file
-				- const HtmlWebpackPlugin = require('html-webpack-plugin');
-				- 	plugins: [
-					new HtmlWebpackPlugin({
-						title: 'Output Management'
-					})
-					],
-			- Additional resources: https://github.com/jaketrent/html-webpack-template
+## Development Environment
+	Note: These tools are used for local environment only
 
-	- Step 2: Clean Up Dist
-		- In general it's good practice to clean the /dist folder before each build, so that only used files will be generated.
-		- Install CleanWebpackPlugin
-			- npm install --save-dev clean-webpack-plugin
-			- Add plugin to config
+- Set mode to development
+	- In config add ```mode: 'development',``` before entry
+- Set up source maps to track errors and warnings to specific files within a bundle. Errors will show up in console.
+	- Add inline-source-map to config under entry
+		- ```devtool: 'inline-source-map',```
 
+#### Development tools (Watchlist, Dev Server, and/or Dev Middleware):
+- Once these are installed you can run server by using either:
+	- Watchlist: npm run watch
+	- Dev Server: npm start
+	- Dev Middleware: npm run server
+	- Note: This will remove the dist folder from working directory and keep in memory. Run npm run build to bundle files into dist.
 
-<Development Environment>
-	- THESE TOOLS USED FOR LOCAL ENVIRONMENT only
-	- Set mode to development
-		- In config add ```mode: 'development',```
-	- Set up source maps to track errors and warnings to specific files within a bundle. Errors will show up in console.
-		- Add inline-source-map to config
-			- devtool: 'inline-source-map',
+##### Watchlist (This will require a page refresh):
+- Add watch mode to json scripts before build
+	- ```"watch": "webpack --watch"```
 
-	Development tools (Watchlist, Dev Server, or Dev Middleware):
-		- Once these are installed you can run server by using either:
-			- Watchlist: npm run watch
-			- Dev Server: npm start
-			- Dev Middleware: npm run server
-			- Note: This will remove the dist folder from working directory and keep in memory. Run npm run build to bundle files into dist.
-		- Watchlist (This will require a page refresh):
-			- Add watch mode to json scripts
-				- ```"watch": "webpack --watch",```
-		- Install webpack dev server
-			- npm install --save-dev webpack-dev-server
-			- Add server to config file and specify dist folder (This tells webpack-dev-server to serve the files from the dist directory on localhost:8080)
-				```devServer: {
-					contentBase: './dist'
-				},```
-			- Add script to json to run dev server
-				- "start": webpack-dev-server --open",
-			- Once working look into https://webpack.js.org/guides/hot-module-replacement/
-		- Dev Middleware
-			- Install express and web dev middleware
-				- npm install --save-dev express webpack-dev-middleware
-				- Add public path to config file output
-					- publicPath: '/'
-				- Set up custom express server
-					- Create server.js in root
-				- Populate server.js
-					```
-					const express = require('express');
-					const webpack = require('webpack');
-					const webpackDevMiddleware = require('webpack-dev-middleware');
+##### Webpack Dev Server
+- Install webpack dev server
+	- ```npm install --save-dev webpack-dev-server```
+- Add server to config file and specify the dist folder (This tells webpack-dev-server to serve the files from the dist directory on localhost: 8080).
+	- ```devServer: { contentBase: './dist' },```
+- Add script to json to run dev server
+	- ```"start": webpack-dev-server --open",```
+- Next: [Hot Module Replacement](https://webpack.js.org/guides/hot-module-replacement/)
 
-					const app = express();
-					const config = require('./webpack.config.js');
-					const compiler = webpack(config);
+##### Dev Middleware
+- Install express and web dev middleware to wrap and emit files processed by webpack to a server. 
+	- ```npm install --save-dev express webpack-dev-middleware```
+- Add public path to config file output
+	- ```publicPath: '/'```
+- Set up custom express server
+	- Create server.js in root
+		
+		```
+		const express = require('express');
+		const webpack = require('webpack');
+		const webpackDevMiddleware = require('webpack-dev-middleware');
 
-					// Tell express to use the webpack-dev-middleware and use the webpack.config.js
-					// configuration file as a base.
-					app.use(webpackDevMiddleware(compiler, {
-					publicPath: config.output.publicPath
-					}));
+		const app = express();
+		const config = require('./webpack.config.js');
+		const compiler = webpack(config);
 
-					// Serve the files on port 3000.
-					app.listen(3000, function () {
-					console.log('Example app listening on port 3000!\n');
-					});
-					```
-				- Add script to json to make it run  easier on the server
-					```
-					"server": "node server.js",
-					```
-	Adjust Text Editor
-		- If using sublime, webstorm, or vim - disable safewrite mode (https://webpack.js.org/guides/development/#adjusting-your-text-editor)
-</Development>
+		// Tell express to use the webpack-dev-middleware and use the webpack.config.js
+		// configuration file as a base.
+		app.use(webpackDevMiddleware(compiler, {
+		publicPath: config.output.publicPath
+		}));
+
+		// Serve the files on port 3000.
+		app.listen(3000, function () {
+		console.log('Example app listening on port 3000!\n');
+		});
+		```
+		
+	- Add script to json to make it run  easier on the server ```"server": "node server.js",```
+
+##### Adjust Text Editor (Optional)
+- If using sublime, webstorm, or vim - [Disable safewrite mode](https://webpack.js.org/guides/development/#adjusting-your-text-editor)
